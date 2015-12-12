@@ -18,7 +18,7 @@ public class Menu {
 	public Menu(PApplet p) {
 		parent = p;
 
-		bgImage = parent.loadImage("levelBG.png");
+		bgImage = parent.loadImage("textures//backgrounds//levelBG.png");
 		bgImage.resize(parent.width, parent.height);
 
 		playButtonRadius = parent.height / 8;
@@ -119,6 +119,8 @@ public class Menu {
 		} else if (Collision.mouseCollisionCircle(parent.mouseX, parent.mouseY, exitButtonX, exitButtonY,
 				exitButtonRadius)) {
 			focusButton = 2;
+		}else{
+			focusButton = 0;
 		}
 
 	}

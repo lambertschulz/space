@@ -8,23 +8,24 @@ import processing.core.PApplet;
 
 public class Space extends PApplet {
 
-	Level level;
-	MainMenu mm;
-	Menu m;
-	Debug debug;
-	boolean playing = false;
-	boolean isdebug = true;
-	int stopaudio = 60 * 10;
-	boolean loading = true;
-	int loadingTime = 60;
-	int t = 0;
-	float loadingProcessFactor = 0.0f;
+	// Objekte deklarieren
+	private Level level;
+	private MainMenu mm;
+	private Menu m;
+	private Debug debug;
 
-	enum gameStates {
+	// Variablen deklarieren
+	boolean isdebug = true;
+	boolean loading = true;
+	int ladebalkenDauerInFrames = 60;
+	int ladebalkenProgress = 0;
+	float ladebalkenProgessFactor = 0.0f;
+
+	enum GameStates {
 		MENU, LEVEL1, MAINMENU
 	};
 
-	gameStates gameState = gameStates.MENU;
+	GameStates gameState = GameStates.MENU;
 
 	public void settings() {
 		// fullScreen(); // allways 16/9
@@ -66,8 +67,8 @@ public class Space extends PApplet {
 			}
 		} else {
 			renderLoading();
-			t++;
-			if (t == loadingTime) {
+			ladebalkenProgress++;
+			if (ladebalkenProgress == ladebalkenDauerInFrames) {
 				loading = false;
 			}
 		}
@@ -84,8 +85,9 @@ public class Space extends PApplet {
 		rect(loadingButtonX - loadingButtonBorderWidth, loadingButtonY - loadingButtonBorderWidth,
 				loadingButtonWidth + 2 * loadingButtonBorderWidth, loadingButtonHeight + 2 * loadingButtonBorderWidth,
 				4);
-		fill(0, 0, t * 255 / loadingTime);
-		rect(loadingButtonX, loadingButtonY, t * loadingButtonWidth / loadingTime, loadingButtonHeight, 4);
+		fill(0, 0, ladebalkenProgress * 255 / ladebalkenDauerInFrames);
+		rect(loadingButtonX, loadingButtonY, ladebalkenProgress * loadingButtonWidth / ladebalkenDauerInFrames,
+				loadingButtonHeight, 4);
 	}
 
 	public static void main(String _args[]) {
@@ -108,11 +110,11 @@ public class Space extends PApplet {
 			break;
 		}
 		case 1: {
-			gameState = gameStates.LEVEL1;
+			gameState = GameStates.LEVEL1;
 			break;
 		}
 		case 2: {
-			exit();
+			stop();
 			break;
 		}
 		}

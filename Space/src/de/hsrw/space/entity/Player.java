@@ -18,12 +18,14 @@ public class Player {
 	float speedCap = 4.0f;
 	float wallBounce = 2.0f;
 	float speedFalloffDividor = 1.1f;
+	boolean useWASD;
 
-	public Player(PApplet p) {
+	public Player(PApplet p, boolean useWASD) {
 		parent = p;
 		p_y = 9 * parent.height / 10;
 		setP_x((parent.width / 2) - (p_width / 2));
 		p_color = parent.color(123, 0, 0);
+		this.useWASD = useWASD;
 	}
 
 	public void render() {
@@ -33,22 +35,45 @@ public class Player {
 	}
 
 	public void move() {
-		if (parent.keyPressed) {
-			if (parent.key == PConstants.CODED) {
-				if (parent.keyCode == PConstants.UP) {
+		if (useWASD) {
+			if (parent.keyPressed) {
+
+				if (parent.keyCode == 'w' || parent.keyCode == 'W') {
 					// fire
 				}
-				if (parent.keyCode == PConstants.DOWN) {
+				if (parent.keyCode == 's' || parent.keyCode == 'S') {
 					// absorb
 				}
-				if (parent.keyCode == PConstants.LEFT) {
+				if (parent.keyCode == 'a' || parent.keyCode == 'A') {
 					if (getSpeed() > -speedCap) {
 						setSpeed(getSpeed() - 1);
 					}
 				}
-				if (parent.keyCode == PConstants.RIGHT) {
+				if (parent.keyCode == 'd' || parent.keyCode == 'D') {
 					if (getSpeed() < speedCap) {
 						setSpeed(getSpeed() + 1);
+					}
+				}
+
+			}
+		} else {
+			if (parent.keyPressed) {
+				if (parent.key == PConstants.CODED) {
+					if (parent.keyCode == PConstants.UP) {
+						// fire
+					}
+					if (parent.keyCode == PConstants.DOWN) {
+						// absorb
+					}
+					if (parent.keyCode == PConstants.LEFT) {
+						if (getSpeed() > -speedCap) {
+							setSpeed(getSpeed() - 1);
+						}
+					}
+					if (parent.keyCode == PConstants.RIGHT) {
+						if (getSpeed() < speedCap) {
+							setSpeed(getSpeed() + 1);
+						}
 					}
 				}
 			}
