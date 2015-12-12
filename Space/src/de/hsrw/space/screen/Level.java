@@ -47,11 +47,8 @@ public class Level {
 			getPlayer().update(f_w);
 			getPlayer().render();
 			if (parent.keyPressed) {
-				System.out.println("a");
 				if (parent.key == PConstants.CODED) {
-					System.out.println("b");
 					if (parent.keyCode == PConstants.DELETE) {
-						System.out.println("c");
 						running = false;
 						em.renderbg();
 						parent.fill(123, 123, 0);

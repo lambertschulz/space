@@ -60,7 +60,6 @@ public class Space extends PApplet {
 					level = new Level(this);
 				}
 				level.render();
-				level.getSt().setSpeed(10.0f);
 				d();
 				break;
 			}
