@@ -38,18 +38,18 @@ public class Player {
 		if (useWASD) {
 			if (parent.keyPressed) {
 
-				if (parent.keyCode == 'w' || parent.keyCode == 'W') {
+				if (parent.key == 'w' || parent.key == 'W') {
 					// fire
 				}
-				if (parent.keyCode == 's' || parent.keyCode == 'S') {
+				if (parent.key == 's' || parent.key == 'S') {
 					// absorb
 				}
-				if (parent.keyCode == 'a' || parent.keyCode == 'A') {
+				if (parent.key == 'a' || parent.key == 'A') {
 					if (getSpeed() > -speedCap) {
 						setSpeed(getSpeed() - 1);
 					}
 				}
-				if (parent.keyCode == 'd' || parent.keyCode == 'D') {
+				if (parent.key == 'd' || parent.key == 'D') {
 					if (getSpeed() < speedCap) {
 						setSpeed(getSpeed() + 1);
 					}

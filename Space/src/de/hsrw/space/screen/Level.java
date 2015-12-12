@@ -1,7 +1,6 @@
 package de.hsrw.space.screen;
 
 import de.hsrw.space.entity.Player;
-import javafx.scene.input.KeyCode;
 import processing.core.PApplet;
 import processing.core.PConstants;
 import processing.core.PImage;
@@ -29,7 +28,7 @@ public class Level {
 		f_y = parent.height / 16; // setze SpielfeldYposition
 		bgImage = parent.loadImage("textures//backgrounds//levelBG.png");
 		bgImage.resize(parent.width, parent.height);
-		this.player = new Player(p, false);
+		this.player = new Player(p, true);
 		this.st = new Sterne(p, this.f_x, this.f_y, this.f_w, this.f_h);
 		running = true;
 		em = new EscMenu(p);
@@ -48,8 +47,8 @@ public class Level {
 			getPlayer().render();
 			if (parent.keyPressed) {
 				if (parent.key == PConstants.DELETE || parent.key == 'q' || parent.key == 'Q') {
-						running = false;
-						em.renderbg();
+					running = false;
+					em.renderbg();
 				}
 			}
 		} else {
@@ -57,7 +56,7 @@ public class Level {
 			running = em.pressedContinue();
 			if (parent.keyPressed) {
 				if (parent.key == PConstants.DELETE || parent.key == 'q' || parent.key == 'Q') {
-						running = true;
+					running = true;
 				}
 			}
 		}
