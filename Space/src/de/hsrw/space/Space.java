@@ -1,6 +1,10 @@
-package space;
+package de.hsrw.space;
 
+import de.hsrw.space.helpers.Debug;
+import de.hsrw.space.screen.Level;
+import de.hsrw.space.screen.Menu;
 import processing.core.PApplet;
+import space.MainMenu;
 
 public class Space extends PApplet {
 
@@ -8,7 +12,6 @@ public class Space extends PApplet {
 	MainMenu mm;
 	Menu m;
 	Debug debug;
-	AudioManager am;
 	boolean playing = false;
 	boolean isdebug = true;
 	int stopaudio = 60 * 10;
@@ -35,7 +38,6 @@ public class Space extends PApplet {
 	public void draw() {
 
 		if (!loading) {
-			audio();
 
 			switch (gameState) {
 			case MENU: {
@@ -48,7 +50,7 @@ public class Space extends PApplet {
 			}
 			case MAINMENU: {
 				if (mm == null) {
-					mm = new MainMenu(this, am, new String[] { "PLAY", "EXIT" });
+					mm = new MainMenu(this, new String[] { "PLAY", "EXIT" });
 				}
 				mm.render();
 				break;
@@ -58,7 +60,7 @@ public class Space extends PApplet {
 					level = new Level(this);
 				}
 				level.render();
-				level.st.setSpeed(10.0f);
+				level.getSt().setSpeed(10.0f);
 				d();
 				break;
 			}
@@ -88,13 +90,13 @@ public class Space extends PApplet {
 	}
 
 	public static void main(String _args[]) {
-		PApplet.main(new String[] { space.Space.class.getName() });
+		PApplet.main(new String[] { de.hsrw.space.Space.class.getName() });
 	}
 
 	public void d() {
 		if (isdebug) {
 			if (debug == null) {
-				debug = new Debug(this, level.player, level);
+				debug = new Debug(this, level.getPlayer(), level);
 			}
 			debug.render();
 		}
@@ -121,12 +123,6 @@ public class Space extends PApplet {
 	public void keyPressed() {
 		if (key == ESC) {
 			key = DELETE;
-		}
-	}
-
-	private void audio() {
-		if (am == null) {
-			am = new AudioManager(this);
 		}
 	}
 }

@@ -9,7 +9,6 @@ public class MainMenu {
 	String[] buttons;
 	PApplet parent;
 	PImage bgImage;
-	AudioManager am;
 
 	int menuColor;
 
@@ -29,8 +28,7 @@ public class MainMenu {
 
 	int focusButton = -1;
 
-	public MainMenu(PApplet p, AudioManager am, String[] buttons) {
-		this.am = am;
+	public MainMenu(PApplet p, String[] buttons) {
 		this.buttons = buttons;
 		parent = p;
 		menuColor = parent.color(100);
