@@ -3,8 +3,8 @@ package de.hsrw.space;
 import de.hsrw.space.helpers.Debug;
 import de.hsrw.space.screen.Level;
 import de.hsrw.space.screen.Menu;
+import de.hsrw.space.unused.MainMenu;
 import processing.core.PApplet;
-import space.MainMenu;
 
 public class Space extends PApplet {
 

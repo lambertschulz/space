@@ -1,4 +1,4 @@
-package space;
+package de.hsrw.space.unused;
 
 import processing.core.PApplet;
 import processing.core.PConstants;
