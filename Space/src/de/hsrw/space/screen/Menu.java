@@ -91,7 +91,7 @@ public class Menu {
 		parent.ellipse(playButtonX, playButtonY, playButtonRadius * 2, playButtonRadius * 2);
 		parent.image(playButtonTexture, playButtonX - playButtonRadius, playButtonY - playButtonRadius);
 		// Text
-		parent.fill(0, 0, 255);
+		parent.fill(30, 20, 255);
 		parent.textAlign(PConstants.CENTER);
 		parent.textSize(playButtonRadius / 2);
 		parent.text("PLAY", (parent.width / 2) - (playButtonRadius), playButtonRadius / 8, playButtonRadius * 2,

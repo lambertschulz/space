@@ -1,6 +1,7 @@
 package de.hsrw.space;
 
 import de.hsrw.space.helpers.Debug;
+import de.hsrw.space.helpers.Keys;
 import de.hsrw.space.screen.Level;
 import de.hsrw.space.screen.Menu;
 import de.hsrw.space.unused.MainMenu;
@@ -13,6 +14,7 @@ public class Space extends PApplet {
 	private MainMenu mm;
 	private Menu m;
 	private Debug debug;
+	private Keys keys;
 
 	// Variablen deklarieren
 	boolean isdebug = true;
@@ -39,6 +41,9 @@ public class Space extends PApplet {
 	public void draw() {
 
 		if (!loading) {
+			if(keys == null){
+				keys = new Keys();
+			}
 
 			switch (gameState) {
 			case MENU: {
@@ -58,9 +63,12 @@ public class Space extends PApplet {
 			}
 			case LEVEL1: {
 				if (level == null) {
-					level = new Level(this);
+					level = new Level(this, keys);
 				}
 				level.render();
+				if (level.pressedMenu()) {
+					gameState = GameStates.MENU;
+				}
 				d();
 				break;
 			}
@@ -104,26 +112,44 @@ public class Space extends PApplet {
 	}
 
 	public void mousePressed() {
-		System.out.println(m.getFb());
-		switch (m.getFb()) {
-		case 0: {
-			break;
-		}
-		case 1: {
-			gameState = GameStates.LEVEL1;
-			break;
-		}
-		case 2: {
-			stop();
-			break;
-		}
-		}
+		if (!loading) {
+			if (gameState == GameStates.MENU) {
+				switch (m.getFb()) {
+				case 0: {
+					break;
+				}
+				case 1: {
+					gameState = GameStates.LEVEL1;
+					break;
+				}
+				case 2: {
+					stop();
+					exit();
+					break;
+				}
+				}
+			} else if (gameState == GameStates.LEVEL1) {
+				if (!level.isRunning()) {
+					level.mouseIsPressed();
+				}
+			}
 
+		}
 	}
 
 	public void keyPressed() {
-		if (key == ESC) {
+		if (key == ESC) { 
 			key = DELETE;
+		}
+	}
+	public void keyReleased(){
+		if (key == 'q') {
+			keys.q = true;
+			key = 0;
+		}
+		if (key == 'Q') {
+			keys.q = true;
+			key = 0;
 		}
 	}
 }

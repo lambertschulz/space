@@ -1,6 +1,8 @@
 package de.hsrw.space.screen;
 
+import de.hsrw.space.Space;
 import de.hsrw.space.entity.Player;
+import de.hsrw.space.helpers.Keys;
 import processing.core.PApplet;
 import processing.core.PConstants;
 import processing.core.PImage;
@@ -16,12 +18,14 @@ public class Level {
 	private PImage bgImage;
 	private Sterne st;
 	private EscMenu em;
+	private Keys keys;
 
 	private Player player;
 	private boolean running;
 
-	public Level(PApplet p) {
-		parent = p;
+	public Level(PApplet p, Keys keys) {
+		this.parent = p;
+		this.keys = keys;
 		f_w = parent.width / 2; // setze Spielfeldbreite
 		f_h = (parent.height / 8) * 7; // setze Spielfeldhöhe
 		f_x = (parent.width / 2) - (f_w / 2); // setze SpielfeldXposition
@@ -45,21 +49,32 @@ public class Level {
 			getPlayer().move();
 			getPlayer().update(f_w);
 			getPlayer().render();
-			if (parent.keyPressed) {
-				if (parent.key == PConstants.DELETE || parent.key == 'q' || parent.key == 'Q') {
-					running = false;
-					em.renderbg();
-				}
+
+			if (keys.q) {
+				keys.q = false;
+				running = false;
+				em.renderbg();
 			}
-		} else {
-			em.render();
-			running = em.pressedContinue();
-			if (parent.keyPressed) {
-				if (parent.key == PConstants.DELETE || parent.key == 'q' || parent.key == 'Q') {
-					running = true;
-				}
-			}
+			/*
+			 * if (parent.keyPressed) { if (parent.key == PConstants.DELETE ||
+			 * parent.key == 'q' || parent.key == 'Q') { running = false;
+			 * em.renderbg(); }
+			 */
+	}else
+
+	{
+		em.render();
+		running = em.pressedContinue();
+		if (keys.q) {
+			keys.q = true;
+			running = true;
 		}
+		/*
+		 * if (parent.keyPressed) { if (parent.key == PConstants.DELETE ||
+		 * parent.key == 'q' || parent.key == 'Q') { running = true; } }
+		 */
+	}
+
 	}
 
 	public Player getPlayer() {
@@ -68,5 +83,17 @@ public class Level {
 
 	public Sterne getSt() {
 		return st;
+	}
+
+	public boolean isRunning() {
+		return running;
+	}
+
+	public void mouseIsPressed() {
+		em.mouseClick();
+	}
+
+	public boolean pressedMenu() {
+		return em.pressedMenu();
 	}
 }

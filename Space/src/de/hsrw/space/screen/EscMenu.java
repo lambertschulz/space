@@ -12,14 +12,17 @@ public class EscMenu {
 	private int buttonCount;
 	private int focusButton;
 	private int menuPadding;
-	private int textSize;
 
 	private int buttonColor;
 	private int buttonColorFocus;
 
 	private int buttonTextColor;
+	private boolean continueGame;
+	private boolean endLevel;
 
-	int lButtonHeight, lButtonWidth, lButtonx, lButtony, lButtonOffset;
+	int buttonHeight, buttonWidth, buttonYOffset;
+
+	int buttonFieldHeight, buttonFieldWidth, buttonFieldX, buttonFieldY;
 
 	String[] buttonTextes = { "CONTINUE", "EXIT TO MAIN MENU", "EXIT TO WINDOWS" };
 
@@ -28,54 +31,80 @@ public class EscMenu {
 		this.bgAlpha = 120;
 		this.bgColor = parent.color(200, 200, 220, this.bgAlpha);
 		buttonCount = buttonTextes.length;
-		menuPadding = 10;
-		textSize = 10;
-		
+		menuPadding = 20;
+
+		buttonTextColor = parent.color(30, 20, 255);
 		focusButton = -1;
 
-		lButtonHeight = 50;
-		lButtonWidth = 150;
-		lButtonx = (parent.width / 2) - (lButtonWidth / 2);
-		lButtony = (parent.height / 2) - ((lButtonHeight * buttonCount + (menuPadding * (buttonCount - 1))) / 2);
+		buttonHeight = parent.height / 8;
+		buttonWidth = parent.width / 4;
 
-		lButtonOffset = 0;
+		buttonFieldHeight = (buttonHeight * buttonCount) + (menuPadding * (buttonCount - 1));
+		buttonFieldWidth = buttonWidth;
+		buttonFieldX = (parent.width / 2) - (buttonFieldWidth / 2);
+		buttonFieldY = (parent.height / 2) - (buttonFieldHeight / 2);
+		
+		continueGame = false;
+		endLevel = false;
 	}
 
 	public void renderbg() {
 		parent.fill(bgColor);
 		parent.rect(0, 0, parent.width, parent.height);
 	}
+
 	public void render() {
+
+		parent.fill(2);
+		parent.rect(buttonFieldX - menuPadding, buttonFieldY - menuPadding + 2, buttonFieldWidth + 2 * menuPadding,
+				buttonFieldHeight + 2 * menuPadding, 5);
+		parent.fill(8);
+		parent.rect(buttonFieldX - menuPadding, buttonFieldY - menuPadding, buttonFieldWidth + 2 * menuPadding,
+				buttonFieldHeight + 2 * menuPadding, 5);
+
 		
+		System.out.print(parent.key);
 		for (int i = 0; i < buttonCount; i++) {
-			// Check MouseCollision
-			lButtonOffset = lButtonHeight + menuPadding * i;
-			if (Collision.mouseCollisionRect(parent.mouseX, parent.mouseY, lButtonx, lButtony + lButtonOffset,
-					lButtonWidth, lButtonHeight)) {
+
+			buttonYOffset = i * (buttonHeight + menuPadding);
+
+			if (Collision.mouseCollisionRect(parent.mouseX, parent.mouseY, buttonFieldX, buttonFieldY + buttonYOffset, buttonWidth, buttonHeight)) {
 				parent.fill(buttonColorFocus);
-				focusButton = buttonCount;
+				focusButton = i;
 			} else {
 				parent.fill(buttonColor);
 				if (focusButton == buttonCount) {
 					focusButton = -1;
 				}
 			}
-			// --------------------------------------
-			// Button
-
-			parent.rect(lButtonx, lButtony + lButtonOffset,
-					lButtonWidth, lButtonHeight, 5);
+			parent.fill(132);
+			parent.rect(buttonFieldX, buttonFieldY + buttonYOffset, buttonWidth, buttonHeight, 5);
 			parent.fill(buttonTextColor);
-			parent.textSize(textSize);
+			parent.textSize(buttonHeight / 3);
 			parent.textAlign(PConstants.CENTER);
-			parent.text(buttonTextes[i], lButtonx, lButtony + lButtonOffset,
-					lButtonWidth, lButtonHeight);
+			parent.text(buttonTextes[i], buttonFieldX, buttonFieldY + buttonYOffset + (buttonHeight / 3), buttonWidth,
+					buttonHeight);
 		}
 
 	}
 
 	public boolean pressedContinue() {
-		return false;
+		return continueGame;
+	}
+	public boolean pressedMenu(){
+		return endLevel;
+	}
+
+	public void mouseClick() {
+		System.out.println(focusButton);
+		if(focusButton == 0){
+			continueGame = true;
+		}else if(focusButton == 1){
+			endLevel = true;
+		}else if(focusButton == 2){
+			parent.stop();
+			parent.exit();
+		}
 	}
 
 }
