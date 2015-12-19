@@ -2,7 +2,7 @@ package de.hsrw.space;
 
 import de.hsrw.space.helpers.Debug;
 import de.hsrw.space.helpers.Keys;
-import de.hsrw.space.screen.Level;
+import de.hsrw.space.scenes.Level;
 import de.hsrw.space.screen.Menu;
 import processing.core.PApplet;
 
@@ -64,9 +64,9 @@ public class Space extends PApplet {
 					level = new Level(this);
 				}
 				level.render();
-				if (level.pressedMenu()) {
+				/*if (level.pressedMenu()) {
 					gameState = GameStates.MENU;
-				}
+				}*/
 				debug();
 				break;
 			}

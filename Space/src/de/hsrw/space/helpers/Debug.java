@@ -1,7 +1,8 @@
 package de.hsrw.space.helpers;
 
-import de.hsrw.space.entity.Player;
-import de.hsrw.space.screen.Level;
+
+import de.hsrw.space.gameobjects.Player;
+import de.hsrw.space.scenes.Level;
 import processing.core.PApplet;
 import processing.core.PConstants;
 
@@ -17,7 +18,7 @@ public class Debug {
 	}
 
 	public void render() {
-		debugMode("" + player.getP_x(), 1);
+		debugMode("" + player.toString(), 1);
 		debugMode("" + player.getSpeed(), 2);
 	}
 
