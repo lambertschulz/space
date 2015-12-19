@@ -38,7 +38,7 @@ public class Space extends PApplet {
 
 	public void settings() {
 		// fullScreen(); // allways 16/9
-		size(1200, 675);
+		size(1200, 675, P2D);
 	}
 
 	public void setup() {
@@ -47,6 +47,8 @@ public class Space extends PApplet {
 	}
 
 	public void draw() {
+		
+		System.out.println(Keys.keys[0] + " " + Keys.keys[1] + " " + Keys.keys[2] + " " + Keys.keys[3] + " " + Keys.keys[4] + " ");
 
 		if (!loading) {
 
