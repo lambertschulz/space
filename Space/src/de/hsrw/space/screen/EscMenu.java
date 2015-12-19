@@ -68,7 +68,7 @@ public class EscMenu {
 
 			buttonYOffset = i * (buttonHeight + menuPadding);
 
-			if (Collision.mouseCollisionRect(parent.mouseX, parent.mouseY, buttonFieldX, buttonFieldY + buttonYOffset, buttonWidth, buttonHeight)) {
+			if (Collision.colPointRect(parent.mouseX, parent.mouseY, buttonFieldX, buttonFieldY + buttonYOffset, buttonWidth, buttonHeight)) {
 				parent.fill(buttonColorFocus);
 				focusButton = i;
 			} else {

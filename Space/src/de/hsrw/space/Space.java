@@ -4,30 +4,37 @@ import de.hsrw.space.helpers.Debug;
 import de.hsrw.space.helpers.Keys;
 import de.hsrw.space.screen.Level;
 import de.hsrw.space.screen.Menu;
-import de.hsrw.space.unused.MainMenu;
 import processing.core.PApplet;
 
 public class Space extends PApplet {
 
-	// Objekte deklarieren
-	private Level level;
-	private MainMenu mm;
-	private Menu m;
-	private Debug debug;
-	private Keys keys;
-
-	// Variablen deklarieren
-	boolean isdebug = true;
-	boolean loading = true;
-	int ladebalkenDauerInFrames = 60;
-	int ladebalkenProgress = 0;
-	float ladebalkenProgessFactor = 0.0f;
-
+	private int ladebalkenDauerInFrames;
+	private int ladebalkenProgress;
+	private float ladebalkenProgessFactor;
 	enum GameStates {
-		MENU, LEVEL1, MAINMENU
+		MENU, LEVEL1
 	};
 
-	GameStates gameState = GameStates.MENU;
+	// Objekte deklarieren
+	private Level level;
+	private Menu m;
+	private Debug debug;
+	// Variablen deklarieren
+	boolean isdebug;
+	boolean loading;
+
+	GameStates gameState;
+
+	public Space() {
+		ladebalkenDauerInFrames = 60;
+		ladebalkenProgress = 0;
+		ladebalkenProgessFactor = 0.0f;
+		isdebug = true;
+		loading = true;
+
+		gameState = GameStates.LEVEL1;
+
+	}
 
 	public void settings() {
 		// fullScreen(); // allways 16/9
@@ -36,14 +43,12 @@ public class Space extends PApplet {
 
 	public void setup() {
 		background(0, 0, 10);
+		Space space = new Space();
 	}
 
 	public void draw() {
 
 		if (!loading) {
-			if(keys == null){
-				keys = new Keys();
-			}
 
 			switch (gameState) {
 			case MENU: {
@@ -54,22 +59,15 @@ public class Space extends PApplet {
 				m.mouseInputCheck();
 				break;
 			}
-			case MAINMENU: {
-				if (mm == null) {
-					mm = new MainMenu(this, new String[] { "PLAY", "EXIT" });
-				}
-				mm.render();
-				break;
-			}
 			case LEVEL1: {
 				if (level == null) {
-					level = new Level(this, keys);
+					level = new Level(this);
 				}
 				level.render();
 				if (level.pressedMenu()) {
 					gameState = GameStates.MENU;
 				}
-				d();
+				debug();
 				break;
 			}
 			}
@@ -98,11 +96,7 @@ public class Space extends PApplet {
 				loadingButtonHeight, 4);
 	}
 
-	public static void main(String _args[]) {
-		PApplet.main(new String[] { de.hsrw.space.Space.class.getName() });
-	}
-
-	public void d() {
+	public void debug() {
 		if (isdebug) {
 			if (debug == null) {
 				debug = new Debug(this, level.getPlayer(), level);
@@ -136,20 +130,53 @@ public class Space extends PApplet {
 
 		}
 	}
-
 	public void keyPressed() {
-		if (key == ESC) { 
-			key = DELETE;
-		}
-	}
-	public void keyReleased(){
-		if (key == 'q') {
-			keys.q = true;
+
+		if (key == ESC) {
 			key = 0;
 		}
-		if (key == 'Q') {
-			keys.q = true;
-			key = 0;
+		if (key == 'w' || key == 'W' || key == UP) {
+			Keys.keys[0] = true;
+		}
+		if (key == 'a' || key == 'A' || key == LEFT) {
+			Keys.keys[1] = true;
+		}
+		if (key == 's' || key == 'S' || key == DOWN) {
+			Keys.keys[2] = true;
+		}
+		if (key == 'd' || key == 'D' || key == RIGHT) {
+			Keys.keys[3] = true;
+		}
+		if (key == 'p' || key == 'P' || key == 0) {
+			Keys.keys[4] = true;
 		}
 	}
+
+	public void keyReleased() {
+		if (key == ESC) {
+			key = 0;
+		}
+		if (key == 'w' || key == 'W' || key == UP) {
+			Keys.keys[0] = false;
+		}
+		if (key == 'a' || key == 'A' || key == LEFT) {
+			Keys.keys[1] = false;
+		}
+		if (key == 's' || key == 'S' || key == DOWN) {
+			Keys.keys[2] = false;
+		}
+		if (key == 'd' || key == 'D' || key == RIGHT) {
+			Keys.keys[3] = false;
+		}
+		if (key == 'p' || key == 'P' || key == 0) {
+			Keys.keys[4] = false;
+		}
+	}
+
+
+
+	public static void main(String _args[]) {
+		PApplet.main(new String[] { de.hsrw.space.Space.class.getName() });
+	}
+
 }

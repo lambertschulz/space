@@ -114,9 +114,9 @@ public class Menu {
 	}
 
 	public void mouseInputCheck() {
-		if (Collision.mouseCollisionCircle(parent.mouseX, parent.mouseY, playButtonX, playButtonY, playButtonRadius)) {
+		if (Collision.colPointCircle(parent.mouseX, parent.mouseY, playButtonX, playButtonY, playButtonRadius)) {
 			focusButton = 1;
-		} else if (Collision.mouseCollisionCircle(parent.mouseX, parent.mouseY, exitButtonX, exitButtonY,
+		} else if (Collision.colPointCircle(parent.mouseX, parent.mouseY, exitButtonX, exitButtonY,
 				exitButtonRadius)) {
 			focusButton = 2;
 		}else{

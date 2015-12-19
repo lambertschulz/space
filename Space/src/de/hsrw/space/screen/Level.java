@@ -18,14 +18,12 @@ public class Level {
 	private PImage bgImage;
 	private Sterne st;
 	private EscMenu em;
-	private Keys keys;
 
 	private Player player;
 	private boolean running;
 
-	public Level(PApplet p, Keys keys) {
+	public Level(PApplet p) {
 		this.parent = p;
-		this.keys = keys;
 		f_w = parent.width / 2; // setze Spielfeldbreite
 		f_h = (parent.height / 8) * 7; // setze Spielfeldhöhe
 		f_x = (parent.width / 2) - (f_w / 2); // setze SpielfeldXposition
@@ -49,31 +47,7 @@ public class Level {
 			getPlayer().move();
 			getPlayer().update(f_w);
 			getPlayer().render();
-
-			if (keys.q) {
-				keys.q = false;
-				running = false;
-				em.renderbg();
-			}
-			/*
-			 * if (parent.keyPressed) { if (parent.key == PConstants.DELETE ||
-			 * parent.key == 'q' || parent.key == 'Q') { running = false;
-			 * em.renderbg(); }
-			 */
-	}else
-
-	{
-		em.render();
-		running = em.pressedContinue();
-		if (keys.q) {
-			keys.q = true;
-			running = true;
 		}
-		/*
-		 * if (parent.keyPressed) { if (parent.key == PConstants.DELETE ||
-		 * parent.key == 'q' || parent.key == 'Q') { running = true; } }
-		 */
-	}
 
 	}
 
