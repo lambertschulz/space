@@ -38,7 +38,7 @@ public class Space extends PApplet {
 
 	public void settings() {
 		// fullScreen(); // allways 16/9
-		size(1200, 675, P2D);
+		size(GlobalVariables.WIDTH, GlobalVariables.HEIGHT, P2D);
 	}
 
 	public void setup() {
